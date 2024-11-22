@@ -1,3 +1,5 @@
+# Add raw data 
+data/California_Fire_Perimeters_(all)
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
