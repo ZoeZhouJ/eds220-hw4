@@ -9,10 +9,11 @@ This project uses false color imagery to visualize the Thomas Fire's impact and 
 ```
 .
 ├── data/                             
-├── .gitignore                       boundary config
-├── README.md                         # Project documentation
+├── .gitignore                       
+├── README.md                         
 ├── hwk4-task2-fire-perimeter-Zhou.ipynb    
-└── hwk4-task3-false-color-Zhou.ipynb       
+├── hwk4-task2-false-color-Zhou.ipynb
+└── spatial_analysis_thomas_fire.ipynb      
 ```
 
 ## Data Access
