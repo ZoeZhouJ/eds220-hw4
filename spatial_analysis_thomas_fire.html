@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>spatial_analysis_thomas_fire</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="spatial_analysis_thomas_fire_files/libs/clipboard/clipboard.min.js"></script>
+<script src="spatial_analysis_thomas_fire_files/libs/quarto-html/quarto.js"></script>
+<script src="spatial_analysis_thomas_fire_files/libs/quarto-html/popper.min.js"></script>
+<script src="spatial_analysis_thomas_fire_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="spatial_analysis_thomas_fire_files/libs/quarto-html/anchor.min.js"></script>
+<link href="spatial_analysis_thomas_fire_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="spatial_analysis_thomas_fire_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="spatial_analysis_thomas_fire_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="spatial_analysis_thomas_fire_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="spatial_analysis_thomas_fire_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="visualizing-the-2017-thomas-fire-using-landsat-imagery-and-aqi-data" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-the-2017-thomas-fire-using-landsat-imagery-and-aqi-data">Visualizing the 2017 Thomas Fire Using Landsat Imagery and AQI Data</h2>
+<p>Author: Zoe Zhou</p>
+<p><a href="https://github.com/ZoeZhouJ/eds220-hwk4.git">GitHub Repository with Full Analysis</a></p>
+<p><img src="https://eoimages.gsfc.nasa.gov/images/imagerecords/91000/91387/ventura_er2_2017339.jpg" class="img-fluid" alt="thomas fire in 2017"> Image credits: NASA</p>
+<section id="about" class="level3">
+<h3 class="anchored" data-anchor-id="about">About</h3>
+<p>The Thomas Fire, which burned from December 2017 to January 2018, was one of the largest wildfires in modern California history. It consumed 281,893 acres across Santa Barbara and Ventura counties, destroying hundreds of structures and significantly impacting local ecology and regional air quality. This blog post combines two analytical approaches: Landsat satellite imagery for visualizing burn scars and vegetation health, and EPA Air Quality Index (AQI) data for assessing fire-related air quality impacts.</p>
+<p>This case study serves multiple purposes: it demonstrates the application of geospatial analysis techniques in environmental monitoring, showcases the integration of multiple data sources for comprehensive disaster assessment, and provides insights into the environmental and public health impacts of large-scale wildfires in California’s changing climate. The analysis employs various Python-based tools and libraries for environmental data science, making it reproducible and adaptable for similar studies of other wildfire events. Through this work, we aim to contribute to the growing body of knowledge about wildfire impacts and recovery patterns in California’s coastal regions.</p>
+</section>
+<section id="highlights" class="level3">
+<h3 class="anchored" data-anchor-id="highlights">Highlights</h3>
+<ol type="1">
+<li><p><strong>False-Color Imaging</strong>: Visualized vegetation health and burn scars using Landsat multispectral bands, revealing insights into fire severity and ecological recovery.</p></li>
+<li><p><strong>Air Quality Assessment</strong>: Quantified the Thomas FIre’s impact on AQI in Santa Barbara County, using time-series data to illustrate pollution trends during and after the fire.</p></li>
+<li><p><strong>Integrated Geospatial Analysis</strong>: Leveraged Python libraries for geospatial processing, including <code>geopandas</code>, <code>xarray</code>, and <code>rasterio</code>.</p></li>
+</ol>
+</section>
+<section id="datasets" class="level3">
+<h3 class="anchored" data-anchor-id="datasets">Datasets</h3>
+<ul>
+<li><p><strong>Landsat Surface Reflectance Data</strong><br>
+Source: <a href="https://planetarycomputer.microsoft.com/dataset/landsat-c2-l2">Microsoft Planetary Computer - Landsat Collection 2 Level-2</a> This data contains Red, Green, Blue (RGB), Near-Infrared(NIR), and Shortwave Infrared (SWIR) bands. Pre-processed to remove data outside study area and coarsen the spatial resolution. False color image created by using the short-wave infrared (swir22), near-infrared, and red variables.</p></li>
+<li><p><strong>Air Quality Index (AQI) Data</strong><br>
+Source: <a href="https://www.epa.gov/outdoor-air-quality-data">Environmental Protection Agancy (EPA) - Air Data</a> This data contains daily AQI values for Santa Barbara County from 2017 to 2018.</p></li>
+<li><p><strong>Thomas Fire perimeter data</strong> Source: <a href="https://www.fire.ca.gov/what-we-do/fire-resource-assessment-program/fire-perimeters">CalFire</a> The database includes information on fire date, managing agency, cause, acres, and the geospatial boundary of the fire, among other information. This data was pre-processed to select only the Thomas fire boundary geometry.</p></li>
+</ul>
+</section>
+<section id="set-up" class="level3">
+<h3 class="anchored" data-anchor-id="set-up">Set Up</h3>
+<p>We will use the following libraries and set-up through this analysis</p>
+<div class="cell" data-tags="[]" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rioxarray <span class="im">as</span> rioxr</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.patches <span class="im">as</span> mpatches </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Set option to display all columns</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="va">None</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="part-1-visualizing-burn-scars" class="level3">
+<h3 class="anchored" data-anchor-id="part-1-visualizing-burn-scars">Part 1: Visualizing Burn Scars</h3>
+<p><strong>Objective</strong>:</p>
+<p>We will create a false-color image of the Thomas Fire to explore how remote sensing and data visualization aid environmental monitoring. False-color imagery, using infrared bands, highlights vegetation health, burn severity, and fire scars. This helps assess recovery, identify risks, and plan restoration.</p>
+<section id="import-data" class="level4">
+<h4 class="anchored" data-anchor-id="import-data">Import Data</h4>
+<div class="cell" data-tags="[]" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import landsat nc data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>landsat <span class="op">=</span> rioxr.open_rasterio(<span class="st">'data/landsat8-2018-01-26-sb-simplified.nc'</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Import fire boundary shapefile</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>thomas <span class="op">=</span> gpd.read_file(<span class="st">'data/thomas-fire-boundary-file'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="prepare-data-for-mapping" class="level4">
+<h4 class="anchored" data-anchor-id="prepare-data-for-mapping">Prepare data for mapping</h4>
+<p>Clean redundant dimension of landsat data</p>
+<div class="cell" data-tags="[]" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove any length 1 dimension and its coordinates</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>landsat <span class="op">=</span> landsat.squeeze().drop_vars(<span class="st">'band'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After data wrangling we are ready for mapping. But first we need to ensure coordinate reference systems (CRS) of spatial data are matched.</p>
+<div class="cell" data-tags="[]" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Match CRS for plotting</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>thomas <span class="op">=</span> thomas.to_crs(landsat.rio.crs)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Test for matching CRS</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> landsat.rio.crs <span class="op">==</span> thomas.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Because Landsat data is downloaded with a estimated box, it’s going to be larger than the thomas fire boundary. We clip landsat with thomas fire boundary to focus on study area.</p>
+<div class="cell" data-tags="[]" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>thomas_landsat <span class="op">=</span> landsat.rio.clip_box(<span class="op">*</span>thomas.total_bounds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Obtain aspect ratio with height and width to avoid distortion when mapping</p>
+<div class="cell" data-tags="[]" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print height and width of landsat data</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Height:'</span>, thomas_landsat.rio.height)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Width:'</span>, thomas_landsat.rio.width)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate aspect ratio for plotting </span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>aspect_ratio <span class="op">=</span> thomas_landsat.rio.width<span class="op">/</span>thomas_landsat.rio.height</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>aspect_ratio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Height: 149
+Width: 259</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>1.738255033557047</code></pre>
+</div>
+</div>
+</section>
+<section id="map-the-thomas-fire-scar" class="level4">
+<h4 class="anchored" data-anchor-id="map-the-thomas-fire-scar">Map the Thomas Fire Scar</h4>
+<div class="cell" data-tags="[]" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize figure</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">6</span><span class="op">*</span>aspect_ratio))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot landsat map by calling false image bands</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>(thomas_landsat[[<span class="st">'swir22'</span>, <span class="st">'nir08'</span>, <span class="st">'red'</span>]]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a> .to_array()</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a> .plot.imshow(ax<span class="op">=</span>ax,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>              robust<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Overlay thomas fire boundary </span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>thomas.boundary.plot(ax<span class="op">=</span>ax,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                    edgecolor<span class="op">=</span><span class="st">"blue"</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>                    linewidth<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>                    label<span class="op">=</span><span class="st">'Thomas Fire Boundary'</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Add legend</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a legend for the false color bands and boundary</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>legend_swir <span class="op">=</span> mpatches.Patch(color <span class="op">=</span> <span class="st">"#eb6a4b"</span>, label <span class="op">=</span> <span class="st">'Shortwave Infrared </span><span class="ch">\n</span><span class="st"> - Burned Area'</span>)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>legend_nir <span class="op">=</span> mpatches.Patch(color <span class="op">=</span> <span class="st">"#a1fc81"</span>, label <span class="op">=</span> <span class="st">'Near Infrared </span><span class="ch">\n</span><span class="st"> - Vegetation'</span>)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>legend_bound <span class="op">=</span> mpatches.Patch(color <span class="op">=</span> <span class="st">"blue"</span>, label <span class="op">=</span> <span class="st">'Thomas Fire Boundary'</span>)</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean up map</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>ax.legend(handles <span class="op">=</span> [legend_swir, legend_nir, legend_bound], loc <span class="op">=</span> <span class="st">'upper right'</span>)</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'False Color Map with the Thomas Fire Boundary'</span>)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="spatial_analysis_thomas_fire_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p><strong>Figure 1. False Color Map of the 2017 Thomas Fire</strong></p>
+<p>This map displays the 2017 Thomas Fire region using false-color imagery derived from Landsat data. The pinkish/salmon colored area within the blue boundary line represents the burn scar from the Thomas Fire. The bright green areas surrounding the burn scar represent healthy, unburned vegetation. Using SWIR (shortwave infrared), NIR (near infrared), and red bands is particularly effective for burn scar analysis because:</p>
+<ul>
+<li>SWIR is sensitive to burn scars and can penetrate smoke</li>
+<li>NIR helps distinguish between burned and unburned vegetation</li>
+<li>Red light helps with overall land feature distinction</li>
+</ul>
+<p>This visualization enhances the identification of burn scars, vegetation health, and moisture content.</p>
+</section>
+</section>
+<section id="part-2-analyzing-fire-impact-on-aqi" class="level3">
+<h3 class="anchored" data-anchor-id="part-2-analyzing-fire-impact-on-aqi">Part 2: Analyzing Fire Impact on AQI</h3>
+<p><strong>Objective</strong>:</p>
+<p>This part of the analysis shows the dramatic impact of the Thomas Fire on Santa Barbara’s air quality. The study built time series visualization showing clear air quality change during fire period. A 5 day rolling averages is created to smooth daily fluctuations and identify trends.</p>
+<section id="import-data-1" class="level4">
+<h4 class="anchored" data-anchor-id="import-data-1">Import Data</h4>
+<div class="cell" data-tags="[]" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in data</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>aqi_17 <span class="op">=</span> pd.read_csv(<span class="st">'data/daily_aqi_by_county_2017.zip'</span>, compression<span class="op">=</span><span class="st">'zip'</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>aqi_18 <span class="op">=</span> pd.read_csv(<span class="st">'data/daily_aqi_by_county_2018.zip'</span>, compression<span class="op">=</span><span class="st">'zip'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="prepare-aqi-tables-for-analysis" class="level4">
+<h4 class="anchored" data-anchor-id="prepare-aqi-tables-for-analysis">Prepare AQI Tables for Analysis</h4>
+<p>We combined AQI data from 2017-2018 to analyze air quality trends during the Thomas Fire period. After merging the datasets, we filtered specifically for Santa Barbara County and removed unnecessary columns to streamline the analysis.</p>
+<div class="cell" data-tags="[]" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># concatenate tables</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>aqi <span class="op">=</span> pd.concat([aqi_17,aqi_18])</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean column names</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>aqi.columns <span class="op">=</span> (aqi.columns</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                  .<span class="bu">str</span>.lower()</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                  .<span class="bu">str</span>.replace(<span class="st">' '</span>,<span class="st">'_'</span>))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Select data from SB county and store as variable</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>aqi_sb <span class="op">=</span> aqi[aqi[<span class="st">'county_name'</span>] <span class="op">==</span> <span class="st">'Santa Barbara'</span>] </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop unnecessary columns in SB</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>aqi_sb <span class="op">=</span> aqi_sb.drop(columns<span class="op">=</span>[<span class="st">'state_name'</span>,<span class="st">'county_name'</span>,<span class="st">'state_code'</span>,<span class="st">'county_code'</span>])</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify operations </span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>aqi_sb.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>date</th>
+      <th>aqi</th>
+      <th>category</th>
+      <th>defining_parameter</th>
+      <th>defining_site</th>
+      <th>number_of_sites_reporting</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>28648</th>
+      <td>2017-01-01</td>
+      <td>39</td>
+      <td>Good</td>
+      <td>Ozone</td>
+      <td>06-083-4003</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>28649</th>
+      <td>2017-01-02</td>
+      <td>39</td>
+      <td>Good</td>
+      <td>PM2.5</td>
+      <td>06-083-2011</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>28650</th>
+      <td>2017-01-03</td>
+      <td>71</td>
+      <td>Moderate</td>
+      <td>PM10</td>
+      <td>06-083-4003</td>
+      <td>12</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="time-series-processing" class="level4">
+<h4 class="anchored" data-anchor-id="time-series-processing">Time Series Processing</h4>
+<p>To address daily fluctuations and provide a clearer trend, we will implement a 5-day rolling average. This method smooths the data by averaging values over a sliding 5-day window, ensuring that short-term variations are minimized while preserving the overall pattern in the dataset.</p>
+<div class="cell" data-tags="[]" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert dates to datetime date type</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>aqi_sb.date <span class="op">=</span> pd.to_datetime(aqi_sb.date)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                     </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign date column as index</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>aqi_sb <span class="op">=</span> aqi_sb.set_index(<span class="st">'date'</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a new column in aqi_sb</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>aqi_sb[<span class="st">'five_day_average'</span>] <span class="op">=</span> aqi_sb[<span class="st">'aqi'</span>].rolling(<span class="st">'5D'</span>).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="visualization" class="level4">
+<h4 class="anchored" data-anchor-id="visualization">Visualization</h4>
+<p>We can create a visualization that displays daily AQI values alongside the smoothed 5-day rolling average, using <code>matplotlib</code>. This plot provides a clear view of short-term fluctuations and overall trends.</p>
+<div class="cell" data-tags="[]" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a plot</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> (aqi_sb.drop(columns<span class="op">=</span><span class="st">'number_of_sites_reporting'</span>) <span class="co"># Drop unnecessary column</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        .plot(title<span class="op">=</span><span class="st">'Daily AQI and 5-day average AQI in Santa Barbara from 2017 to 2018'</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>              ylabel<span class="op">=</span><span class="st">'Air Quality Index'</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>              color<span class="op">=</span>[<span class="st">'salmon'</span>,<span class="st">'blue'</span>] </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>)                                     </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the date of the Thomas fire</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>plt.axvline(x <span class="op">=</span> <span class="st">'2017-12-04'</span>, </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>            color <span class="op">=</span> <span class="st">'red'</span>, </span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>            linestyle <span class="op">=</span> <span class="st">'dashed'</span>, </span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>            label <span class="op">=</span> <span class="st">"Thomas Fire"</span>)   </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>plt.legend()                  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>&lt;matplotlib.legend.Legend at 0x7ff0dedbd890&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="spatial_analysis_thomas_fire_files/figure-html/cell-12-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p><strong>Figure 2. Daily AQI and 5-day AQI averages in Santa Barbara County</strong></p>
+<p>During the peak fire period in December 2017, AQI values spiked significantly above normal levels. The 5-day rolling average helps smooth out daily fluctuations while still highlighting the severe deterioration in air quality during the fire. Outside of the fire period, Santa Barbara generally maintained good air quality with AQI values typically below 100. This makes the fire’s impact even more striking, as 5-day AQI values rose well above 200 during the incident.</p>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
